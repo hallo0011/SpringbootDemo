@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.Mapper.UserAuthMapper">
+    <select id="searchRoleByUid" resultType="com.demo.demo.Pojo.Role">
+        select r.* from role r,user_role ur where ur.uid = #{uid} and ur.rid = r.id
+    </select>
+    <select id="getUserMenu" resultType="com.demo.demo.Pojo.Menu">
+        select m.* from menu m,role_menu rm where rm.rid = #{rid} and rm.mid = m.id
+    </select>
+    <select id="getByParentId" resultType="com.demo.demo.Pojo.Menu">
+        select m.* from menu m,role_menu rm where m.parent_id = #{parentId} and rm.rid = #{rid} and m.id = rm.mid
+    </select>
+    <select id="getByPid" resultType="com.demo.demo.Pojo.Menu">
+        select * from menu where parent_id = #{pid}
+    </select>
+    <select id="getAllMenu" resultType="com.demo.demo.Pojo.Menu">
+        select * from menu
+    </select>
+    <select id="getParentMenuId" resultType="java.lang.Integer">
+        select id from menu where parent_id = 0
+    </select>
+    <select id="getUserRoleId" resultType="java.lang.Integer">
+        select r.id from role r,user_role ur,user u where ur.rid = r.id and ur.uid = u.id and u.username = #{username}
+    </select>
+</mapper>

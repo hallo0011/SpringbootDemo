@@ -1,14 +1,13 @@
 package com.demo.demo.Realm;
 
 import com.demo.demo.Pojo.User;
-import com.demo.demo.UserService;
+import com.demo.demo.Service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import sun.security.krb5.Realm;
 
 public class UserRealm extends AuthorizingRealm {//所有自定义的Realm必须继承AuthorizingRealm
 

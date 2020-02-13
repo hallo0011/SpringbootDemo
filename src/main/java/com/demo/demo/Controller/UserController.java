@@ -1,8 +1,8 @@
 package com.demo.demo.Controller;
 
-import com.demo.demo.Mapper.UserMapper;
 import com.demo.demo.Pojo.User;
-import com.demo.demo.UserService;
+import com.demo.demo.Service.UserAuthService;
+import com.demo.demo.Service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -13,13 +13,17 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private UserAuthService userAuthService;
     @PostMapping("/register")
     public String register(@RequestBody User user){
         if(userService.isExist(user.getUsername())){
@@ -37,14 +41,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String Login(@RequestBody User user){
+    public Object Login(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
         //Shiro帮我们写好了UsernamePasswordToken，只要提交账号密码，后面的交给Realm，Realm交给SecurityManage
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
         //只要一行代码就能实现登录
         try {
             subject.login(token);
-            return (String) subject.getSession().getId();
+            Map<String,Object> result = new HashMap<>();
+            result.put("token",subject.getSession().getId().toString());
+            result.put("rid",userAuthService.getUserRole(user.getUsername()));
+            return result;
         }catch (UnknownAccountException e){ //处理我们在Realm中抛出的异常
             return "用户不存在";
         }catch (AuthenticationException e){ //当Shiro发现用户的账号密码不匹配时自动抛出这个异常

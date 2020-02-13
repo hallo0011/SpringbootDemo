@@ -1,4 +1,4 @@
-package com.demo.demo;
+package com.demo.demo.Service;
 
 import com.demo.demo.Mapper.UserMapper;
 import com.demo.demo.Pojo.User;
