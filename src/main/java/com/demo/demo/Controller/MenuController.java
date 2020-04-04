@@ -20,8 +20,9 @@ public class MenuController {
     public List<Menu> getMenu(@PathVariable Integer rid){
         List<Menu> menus = userAuthService.getUserMenu(rid);
         for(Menu menu : menus){
-            if(menu.getParent_id() == 0)
+            if(menu.getParent_id() == 0) {
                 menu.setChild(userAuthService.getByChildMenu(rid,menu.getId()));
+            }
         }
         Iterator<Menu> iterator = menus.iterator();
         while (iterator.hasNext()) {
@@ -36,5 +37,15 @@ public class MenuController {
     @GetMapping("/all")
     public Map<String,List> getAllMenu(){
         return userAuthService.getAllMenu();
+    }
+
+    @GetMapping("/{rid}")
+    public List<Integer> getRoleMenu(@PathVariable Integer rid){
+        try{
+            return userAuthService.getRoleMenu(rid);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

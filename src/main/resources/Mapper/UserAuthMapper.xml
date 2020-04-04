@@ -23,4 +23,7 @@
     <select id="getUserRoleId" resultType="java.lang.Integer">
         select r.id from role r,user_role ur,user u where ur.rid = r.id and ur.uid = u.id and u.username = #{username}
     </select>
+    <select id="getRoleMenu" resultType="java.lang.Integer">
+        select mid from role_menu where rid = #{rid}
+    </select>
 </mapper>

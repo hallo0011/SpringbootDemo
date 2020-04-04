@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="conn()">连接</button>
+    <input id="msg"><button onclick="sendMsg()">发送</button>
+    <button onclick="closeConn()">关闭连接</button>
+
+<script>
+    var ws;
+    function conn() {
+        if(WebSocket != "undefined"){
+            console.log("浏览器支持WebSock");
+            if(ws != null){
+                ws.onclose();
+                ws = null;
+            }
+            ws = new WebSocket("ws://localhost:9527/mail")
+        }else{
+            alert("浏览器不支持Websocket")
+        }
+        ws.onopen = function (ev) {
+            console.log("客户端打开了连接")
+        };
+        ws.onmessage = function (ev) {
+            console.log("客户端收到消息:" + ev.data)
+        };
+        ws.onerror = function (ev) {
+            console.log("客户端发送异常")
+        };
+        ws.onclose = function (ev) {
+            console.log("客户端关闭了连接")
+        }
+    }
+    function sendMsg() {
+        let val = document.getElementById("msg").value;
+        console.log(val)
+        ws.send(val);
+        console.log("消息发送成功")
+    }
+    function closeConn() {
+        ws.onclose();
+        alert("您关闭了连接");
+    }
+
+</script>
+</body>
+</html>

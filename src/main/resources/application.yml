@@ -1,6 +1,5 @@
-server:
+﻿server:
   port: 9527
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/project?serverTimezone=GMT

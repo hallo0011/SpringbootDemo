@@ -55,7 +55,7 @@ public class UserController {
         }catch (UnknownAccountException e){ //处理我们在Realm中抛出的异常
             return "用户不存在";
         }catch (AuthenticationException e){ //当Shiro发现用户的账号密码不匹配时自动抛出这个异常
-            return "账号或密码错误";
+            return "账号或密码错误!!";
         }
     }
 
@@ -73,4 +73,5 @@ public class UserController {
             return 1;
         return 0;
     }
+
 }

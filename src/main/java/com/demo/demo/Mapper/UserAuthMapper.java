@@ -21,4 +21,5 @@ public interface UserAuthMapper {
 
     List<Integer> getParentMenuId();
 
+    List<Integer> getRoleMenu(Integer rid);
 }

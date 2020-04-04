@@ -49,4 +49,7 @@ public class UserAuthService {
         return menus;
     }
 
+    public List<Integer> getRoleMenu(Integer rid) {
+        return userAuthMapper.getRoleMenu(rid);
+    }
 }

@@ -11,6 +11,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+
     public boolean checkUser(User user){
         User u = userMapper.selectUser(user);
         if(u == null){
@@ -34,4 +35,5 @@ public class UserService {
     public void add(User user) {
         userMapper.insert(user);
     }
+
 }
